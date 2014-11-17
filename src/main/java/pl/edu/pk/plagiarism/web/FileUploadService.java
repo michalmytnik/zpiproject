@@ -3,8 +3,13 @@ package pl.edu.pk.plagiarism.web;
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.Calendar;
+import java.util.Iterator;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.MultivaluedMap;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -12,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
 
@@ -19,17 +25,19 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/file")
 public class FileUploadService { 
 	
+	
+	
+	private final String UPLOADED_FILE_PATH = "d:\\";
+	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
-    public @ResponseBody String handleFileUpload( 
+    public @ResponseBody String handleFileUpload(@RequestParam("name") String name,
             @RequestParam("file") MultipartFile file){
-            String name = "test11";
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
-                BufferedOutputStream stream = 
+                BufferedOutputStream stream =
                         new BufferedOutputStream(new FileOutputStream(new File(name + "-uploaded")));
-                stream.write(bytes);
-                stream.close();
+                writeFile(bytes,UPLOADED_FILE_PATH + name);
                 return "You successfully uploaded " + name + " into " + name + "-uploaded !";
             } catch (Exception e) {
                 return "You failed to upload " + name + " => " + e.getMessage();
@@ -38,4 +46,46 @@ public class FileUploadService {
             return "You failed to upload " + name + " because the file was empty.";
         }
     }
+	
+	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST)
+	   public @ResponseBody String upload(MultipartHttpServletRequest request, HttpServletResponse response) {                 
+	 
+	     //0. notice, we have used MultipartHttpServletRequest
+	 
+	     //1. get the files from the request object
+	     Iterator<String> itr =  request.getFileNames();
+	 
+	     MultipartFile mpf = request.getFile(itr.next());
+	     System.out.println(mpf.getOriginalFilename() +" uploaded!");
+	 
+	     try {
+             byte[] bytes = mpf.getBytes();
+             BufferedOutputStream stream =
+                     new BufferedOutputStream(new FileOutputStream(new File(mpf.getOriginalFilename() + "-uploaded")));
+             writeFile(bytes,UPLOADED_FILE_PATH + mpf.getOriginalFilename());
+             return "You successfully uploaded " + mpf.getOriginalFilename() + " into " + mpf.getOriginalFilename() + "-uploaded !";
+         } catch (Exception e) {
+             return "You failed to upload " + mpf.getOriginalFilename() + " => " + e.getMessage();
+         }
+
+	 
+	  }
+
+	
+	private void writeFile(byte[] content, String filename) throws IOException {
+		 
+		File file = new File(filename);
+ 
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+ 
+		FileOutputStream fop = new FileOutputStream(file);
+ 
+		fop.write(content);
+		fop.flush();
+		fop.close();
+ 
+	}
+ 
     }
