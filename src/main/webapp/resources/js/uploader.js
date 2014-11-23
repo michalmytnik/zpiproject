@@ -6,7 +6,7 @@ function uploadFormData(){
   oMyForm.append("file", file2.files[0]);
  
   $.ajax({
-    url: 'http://mich:8080/zpiAntyPlagarismProject-1.0/file//uploadAjax',
+    url: 'http://mich:8080/zpiAntyPlagarismProject-1.0/file/uploadAjax',
     data: oMyForm,
     dataType: 'text',
     processData: false,

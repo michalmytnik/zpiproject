@@ -6,9 +6,10 @@
 		<title>Anty-Plagiat</title>
 		<link href="<c:url value="/resources/css/style.css" />" rel="stylesheet">
 		<script src="<c:url value="/resources/js/jquery-1.11.1.min.js" />"></script>
-		<script src="<c:url value="/resources/js/script.js" />"></script>
-		<link href="<c:url value="/resources/css/bootstrap.min.css" />" rel="stylesheet">
-<link href="<c:url value="/resources/css/bootstrap-theme.min.css" />" rel="stylesheet">
+		<script src="<c:url value="/resources/js/scripts.js" />"></script>
+		<script src="<c:url value="/resources/js/jQueryForm.js" />"></script>
+				<script src="<c:url value="/resources/js/uploader.js" />"></script>
+
 <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 	</head>
 	<body>
@@ -87,9 +88,11 @@
   <input  class="btn btn-primary" name="file2" id="file2" type="file" style="float:left; background-image:none; background-color:#9ED04C;" /><br/>
 </form>
  
-<button value="Submit" class="btn btn-primary" type="button" onclick="uploadJqueryForm()" style="float:left; background-image:none; background-color:#9ED04C;">Dodaj plik!</button>
-<button value="Submit"  class="btn btn-primary" type="button" onclick="uploadFormData()" style="float:right;background-image:none; background-color:#9ED04C;">Sprawdzam</button>
-															  
+ <button value="Submit"  class="btn btn-primary" type="button" onclick="uploadFormData()" style="float:right;background-image:none; background-color:#9ED04C;">Dodaj plik</button>
+<button value="Submit" class="btn btn-primary" type="button" onclick="alert('/todo check if plagiarism')" style="float:left; background-image:none; background-color:#9ED04C;">Sprawdzam!</button>
+
+														
+														<div id="result"></div>  
 														</div>
 														<div class="cleared"></div>
 													</div>

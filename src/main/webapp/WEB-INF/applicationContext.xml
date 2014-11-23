@@ -33,6 +33,7 @@
 		<property name="annotatedClasses">
 			<list>
 				<value>pl.edu.pk.plagiarism.entities.User</value>
+				<value>pl.edu.pk.plagiarism.entities.File</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">
