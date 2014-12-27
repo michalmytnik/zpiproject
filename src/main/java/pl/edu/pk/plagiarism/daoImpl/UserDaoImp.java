@@ -38,6 +38,7 @@ public class UserDaoImp extends BaseDaoImpl implements UserDao {
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<User> getUsers() {
+
 		Criteria criteria = getSession().createCriteria(User.class);		
 		return criteria.list();
 	}

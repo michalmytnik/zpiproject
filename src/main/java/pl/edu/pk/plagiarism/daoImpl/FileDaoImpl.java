@@ -3,6 +3,7 @@ package pl.edu.pk.plagiarism.daoImpl;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.Query;
 import org.springframework.stereotype.Repository;
 
 import pl.edu.pk.plagiarism.dao.FileDao;
@@ -25,11 +26,19 @@ public class FileDaoImpl extends BaseDaoImpl implements FileDao {
 		return false;
 	}
 
-	@Override
-	@SuppressWarnings("unchecked")
+	
 	public List<File> getFiles() {
 		Criteria criteria = getSession().createCriteria(File.class);	
 		return criteria.list();
+	}
+	
+	public File getFileByName(String fileName)
+	{
+		Query query = getSession().createQuery("from File where name = :name ");
+		query.setParameter("name", fileName);
+		List<File> list = query.list();
+		return list.get(0);
+		
 	}
 	
 	

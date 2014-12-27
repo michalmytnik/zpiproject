@@ -8,5 +8,6 @@ public interface FileDao {
 	
 	public boolean addFile(File file);	
 	public List<File> getFiles();
+	public File getFileByName(String fileName);
 
 }

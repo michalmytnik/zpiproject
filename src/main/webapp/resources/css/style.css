@@ -311,7 +311,7 @@ table.position
 
 .art-sheet
 {
-  top: 50px !important;
+  top: 100px !important;
   margin-bottom: 100px !important;
   cursor:auto;
   width: 800px;
@@ -1310,7 +1310,7 @@ input, select, textarea
 }
 
 .art-post-body
-{
+{	
   position: relative;
   padding: 30px;
 }
@@ -1871,6 +1871,7 @@ img.wp-smiley
 }
 
 .art-content {
+  background-color: #000000;
   position: relative;
   z-index: 1;   
 }
@@ -1939,6 +1940,14 @@ div.art-author-info img.avatar
 {
 	float:left;	
 	margin-top:0;
+}
+
+#fileLoadInfo
+{	
+	height:30px;
+	color : #9ED04C;
+	font-size : 16px;
+	font-weight : bold;
 }
 
 
