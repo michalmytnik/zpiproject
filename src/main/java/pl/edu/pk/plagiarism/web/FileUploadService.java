@@ -33,7 +33,7 @@ public class FileUploadService {
 	private FileService fileService;
 	
 	
-	private final String UPLOADED_FILE_PATH = "d:\\";
+	private final String UPLOADED_FILE_PATH = "d:\\baza\\";
 	
 	@RequestMapping(value="/upload", method=RequestMethod.POST)
     public @ResponseBody String handleFileUpload(@RequestParam("name") String name,

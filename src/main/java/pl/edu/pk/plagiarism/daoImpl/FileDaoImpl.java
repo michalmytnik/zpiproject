@@ -16,8 +16,14 @@ public class FileDaoImpl extends BaseDaoImpl implements FileDao {
 	public boolean addFile(File file) {
 		try
 		{
-		sessionFactory.getCurrentSession().save(file);
-		return true;
+			
+			String filename = file.getName();
+			File queriedFile = getFileByName(filename);
+			if(queriedFile == null){
+				sessionFactory.getCurrentSession().save(file);
+			}
+			return true;
+		
 		}
 		catch( Exception e)
 		{
@@ -37,7 +43,12 @@ public class FileDaoImpl extends BaseDaoImpl implements FileDao {
 		Query query = getSession().createQuery("from File where name = :name ");
 		query.setParameter("name", fileName);
 		List<File> list = query.list();
-		return list.get(0);
+		if(list.size()>0){
+			return list.get(0);
+		}else{
+			return null;
+		}
+		
 		
 	}
 	

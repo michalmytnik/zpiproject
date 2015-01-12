@@ -1,21 +1,16 @@
 //using FormData() object
-function uploadFileToRepo(servicePath) {
+function uploadFileToRepo(doCheck) {
 	$('#result').html('');
 
 	var oMyForm = new FormData();
+	var filename = file2.value;
 	oMyForm.append("file", file2.files[0]);
 	//var url = 'http://localhost:8080/zpiAntyPlagarismProject/file//uploadAjax';
-	var url;
+	
 	var message = "Plik dodano do bazy materiałów";
-	if(servicePath){
-		url = getPath(document.URL) + servicePath;
-		message = "Sprawdzanie pliku...";
-	}else{
-		url = getPath(document.URL) + '//file/uploadAjax';
-	}
-	
-	
-	
+
+	var url = getPath(document.URL) + '//file/uploadAjax';
+		
 	console.log(document.domain);
 	$.ajax({
 		url : url,
@@ -27,6 +22,10 @@ function uploadFileToRepo(servicePath) {
 		success : function(data) {
 			showInfo(message);
 			console.info('File uploaded.')
+			if(doCheck){
+				callChecker(filename);
+			}
+			
 		},
 		fail : function() {
 			console.err('Cannot upload file!');
@@ -51,10 +50,27 @@ var getPath = function(url){
 }
 
 function checkPlagarism(){
-	var servicePath = '//file/uploadToCheck'
-	uploadFileToRepo(servicePath)
+	//var servicePath = '//file/uploadToCheck'
+	uploadFileToRepo(true);
+}
+
+function callChecker(filename){
+	filename = encodeURI(filename)
+	var url = getPath(document.URL) + '/check/isPlagarism?fileName=' + filename;
 	
-	
+	$.ajax({
+		url : url,
+		type : 'GET',
+		dataType : 'json',
+		success : function(result){
+			console.log('Check successfull!');
+			$('#mainContent').html("");
+			$('#mainContent').html(result);
+		},
+		fail : function(){
+			console.err('Something wrong with check request');
+		}
+	});
 }
 
 // using jquery.form.js

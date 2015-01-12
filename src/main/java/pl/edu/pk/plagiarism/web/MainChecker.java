@@ -28,7 +28,7 @@ public class MainChecker implements Serializable {
 	@Inject
 	private FileService fileService;
 	
-	@RequestMapping(value = "/isPlagarism", method = RequestMethod.GET)
+	@RequestMapping(value = "/isPlagarism", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
 	public @ResponseBody List<ComparisonStorage> checkIfPlagiarism(@RequestParam("fileName") String fileName) {
 		List<ComparisonStorage> cs;
 		try {

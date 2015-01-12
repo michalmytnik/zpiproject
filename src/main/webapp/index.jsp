@@ -115,7 +115,7 @@
 															style="float: left; background-image: none; background-color: #9ED04C;">Dodaj
 															plik!</button>
 														<button value="Submit" class="btn btn-primary"
-															type="button" onclick="checkPlagarism())"
+															type="button" onclick="checkPlagarism()"
 															style="float: right; background-image: none; background-color: #9ED04C;">Sprawdzam</button>
 														 
 													</div>
