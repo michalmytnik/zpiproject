@@ -64,13 +64,65 @@ function callChecker(filename){
 		dataType : 'json',
 		success : function(result){
 			console.log('Check successfull!');
-			$('#mainContent').html("");
-			$('#mainContent').html(result);
+			showResults(result);
 		},
 		fail : function(){
 			console.err('Something wrong with check request');
 		}
 	});
+}
+
+function showResults(result){
+	//clear space for result
+	$('#mainContent').html("");
+	/*[
+	 * {
+	 * 		levenstheinDistance : int, 
+	 * 		textSimilarity : int,
+	 * 		pecentageOfMatchRows : int,
+	 * 		pecentageOfWordMatchWords : int,
+	 * 		levenstheinDistanceBinary : int,
+	 * 		fileName : string
+	 * }
+	 * ]
+	*/
+	
+	var resultDiv = $('<div />', {
+		class : "resultTable",	
+	});
+	
+	var table = $('<table />');
+	var row = $('<tr />');
+	var cell = $('<td />');
+	row.append($('<td />').text('Dane'));
+	row.append($('<td />').text('Plik'));
+	table.append(row);
+	
+	for(var i=0; i<result.length; i++){
+		
+		if(result[i].textSimilarity > 80){
+			var tempRow = $('<tr />');
+			var dataCell = $('<td />').html(
+					'fileName : ' + result[i].fileName + '<br />' +
+					'levenstheinDistance : ' + result[i].levenstheinDistance + '<br />' +
+					'levenstheinDistanceBinary : ' + result[i].levenstheinDistanceBinary + '<br />' +
+					'pecentageOfMatchRows : ' + result[i].pecentageOfMatchRows + '<br />' +
+					'pecentageOfWordMatchWords : ' + result[i].pecentageOfWordMatchWords + '<br />' +
+					'textSimilarity : ' + result[i].textSimilarity + '<br />'				
+					);
+			
+			var url = getPath(document.URL) + '/download/file?fileName=' + encodeURI(result[i].fileName);
+			var fileCell = $('<td />').html('<a href="'+ url +'">'+ result[i].fileName +'</a>'
+					);
+			tempRow.append(dataCell);
+			tempRow.append(fileCell);
+			table.append(tempRow);
+		}
+	}
+	
+	resultDiv.append(table);
+	$('#mainContent').append(resultDiv);
+		
 }
 
 // using jquery.form.js
