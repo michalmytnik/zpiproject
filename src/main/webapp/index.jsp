@@ -34,7 +34,7 @@
 							<div class="l"></div>
 							<div class="r"></div>
 							<ul class="art-menu">
-								<li><a href="./home.jsp" class="active"><span class="l">
+								<li><a href="./index.jsp" class="active"><span class="l">
 									</span><span class="r"> </span><span class="t">Start</span></a></li>
 								<li><a href="./about-us.jsp"><span class="l"> </span><span
 										class="r"> </span><span class="t">O nas</span></a></li>
@@ -65,7 +65,7 @@
 											<div class="art-vmenublockcontent">
 												<div class="art-vmenublockcontent-body">
 													<ul class="art-vmenu">
-														<li><a href="./home.jsp" class="active"><span
+														<li><a href="./index.jsp" class="active"><span
 																class="l"> </span><span class="r"> </span><span
 																class="t">Start</span></a></li>
 														<li><a href="./about-us.jsp"><span class="l">
