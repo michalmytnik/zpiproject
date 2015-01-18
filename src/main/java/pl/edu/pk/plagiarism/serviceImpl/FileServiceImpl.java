@@ -12,14 +12,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import pl.edu.pk.plagiarism.dao.FileDao;
-import pl.edu.pk.plagiarism.dao.UserDao;
 import pl.edu.pk.plagiarism.entities.File;
 import pl.edu.pk.plagiarism.service.FileService;
 import pl.edu.pk.plagiarism.utils.ComparisonStorage;
 import pl.edu.pk.plagiarism.utils.ReadTxt;
 import pl.edu.pk.plagiarism.utils.ReportsCreator;
 import pl.edu.pk.plagiarism.utils.TextComparison;
-import pl.edu.pk.plagiarism.utils.Utils;
 
 @Service
 @Transactional(readOnly = true)

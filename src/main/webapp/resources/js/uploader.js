@@ -73,7 +73,7 @@ function callChecker(filename){
 		dataType : 'json',
 		success : function(result){
 			console.log('Check successfull!');
-			showResults(result);
+			showResults(result, filename);
 			$('#cover').fadeOut(1500);
 		},
 		fail : function(){
@@ -83,7 +83,7 @@ function callChecker(filename){
 	});
 }
 
-function showResults(result){
+function showResults(result, originalFileName){
 	//clear space for result
 	$('#mainContent').html("");
 	/*[
@@ -108,6 +108,7 @@ function showResults(result){
 	row.append($('<td />').text('LP'));
 	row.append($('<td />').text('Dane'));
 	row.append($('<td />').text('Plik'));
+	row.append($('<td />').text('Porównaj'));
 	row.append($('<td />').text('Raport'));
 	table.append(row);
 	
@@ -130,11 +131,15 @@ function showResults(result){
 			var fileNameCell = $('<td />').html('<span">'+ result[i].fileName.replace(".txt","") +'</span>');
 			var fileCell = $('<td />').html('<a href="'+ url +'">'+ result[i].fileName +'</a>');
 			var fileCellReport = $('<td />').html('<a href="'+ url.replace(".txt",".pdf") +'">'+ result[i].fileName.replace(".txt",".pdf") +'</a>');
+			var urlToCompare = getPath(document.URL) + '/compare.jsp?originalFileName='+ originalFileName +"&fileName="+ encodeURI(result[i].fileName);
+			var compareCell = $('<td />').html('<a href="'+ urlToCompare +'" target="_blank">'+ result[i].fileName +'</a>'
+					);
 			/*tempRow.append(dataCell);*/
 			var lp = $('<td />').html(i+1 + '.');
 			tempRow.append(lp);
 			tempRow.append(fileNameCell);
 			tempRow.append(fileCell);
+			tempRow.append(compareCell);
 			tempRow.append(fileCellReport);
 			table.append(tempRow);
 		}

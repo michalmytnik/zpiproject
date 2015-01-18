@@ -3,9 +3,9 @@ package pl.edu.pk.plagiarism.web;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -13,20 +13,14 @@ import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import pl.edu.pk.plagiarism.service.FileService;
-import pl.edu.pk.plagiarism.service.UserService;
 import pl.edu.pk.plagiarism.utils.ComparisonStorage;
-import pl.edu.pk.plagiarism.vo.Status;
-import pl.edu.pk.plagiarism.vo.UserVo;
 
 @Controller
 @RequestMapping("/check")
@@ -51,7 +45,27 @@ public class MainChecker implements Serializable {
 		}
 	}
 	
-	
+	@RequestMapping(value = "/compareControler", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
+	public @ResponseBody List<String> compareTwoFile(HttpServletRequest request,
+			HttpServletResponse response,
+			@RequestParam("originalFileName") String originalFileName,
+			@RequestParam("fileName") String fileName) {
+		List<String> fileList = new ArrayList<String>();
+		try {
+			String originalFileText = fileService.getAllTexts().get(
+					originalFileName);
+			String fileText = fileService.getAllTexts().get(fileName);
+			
+			fileList.add(originalFileText);
+			fileList.add(fileText);
+			
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return fileList;
+
+
+	}
 	  
     /**
      * Size of a byte buffer to read/write file
