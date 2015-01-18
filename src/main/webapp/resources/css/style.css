@@ -17,6 +17,18 @@ Tags: fixed width, left sidebar, two columns, valid XHTML, widgets
     font-size: 13px;
 }
 
+#cover {
+    background: url("images/ajaxloader.GIF") no-repeat scroll center center #FFF;
+    position: fixed;
+    height: 100%;
+    width: 100%;
+     filter:alpha(opacity=50);
+        -moz-opacity:0.5;
+        -khtml-opacity: 0.5;
+        opacity: 0.5;
+        z-index: 998;
+}
+
 h1, h2, h3, h4, h5, h6, p, a, ul, ol, li
 {
     margin: 0;

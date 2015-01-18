@@ -15,7 +15,15 @@
 	rel="stylesheet">
 <script src="<c:url value="/resources/js/bootstrap.min.js" />"></script>
 </head>
+<script type="text/javascript">
+
+$(window).load(function(){
+    $('#cover').fadeOut(2000);
+})
+
+</script>
 <body>
+<div id="cover"></div>
 	<div id="art-page-background-glare">
 		<div id="art-page-background-glare-image">
 			<div id="art-main">

@@ -33,10 +33,10 @@ public class LevenstheinDistance {
 
 				
 					int costReplace = currentCost[i - 1] + sameValue;
-					// wstawienie znaku,
+			
 					int costAdd = currentCost[i] + 1;
 				
-					// usuniêcie znaku
+			
 					int costRemove = newCost[i - 1] + 1;
 				
 					// obliczanie najmniejszego kosztu i zapisanie w tablicy

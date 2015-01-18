@@ -1,9 +1,8 @@
 package pl.edu.pk.plagiarism.algorithms;
 
 	
-	/**
-	 ** Java Program to implement Boyer Moore Algorithm
-	 **/
+
+
 	 
 	import java.io.BufferedReader;
 	import java.io.InputStreamReader;
@@ -11,15 +10,9 @@ package pl.edu.pk.plagiarism.algorithms;
 	 
 	
 	
-	// Algortym BoyeraMoor'a do u¿ycia potrzebny obiekt klasy oraz wywo³anie metody 
-	
-    //   BoyerMoore bm = new BoyerMoore(); 
-   //    bm.findPattern(text, pattern); 
-	
 	public class BoyerMooreAlgorithm {
 	
-		// jesli zwraca > -1 to znaleziono wzorzec jesli nie to wzorca nie odnaleziono
-	    
+	
 		public int findPattern(String textSource, String patternSource)
 	    {
 	        char[] text = textSource.toCharArray();

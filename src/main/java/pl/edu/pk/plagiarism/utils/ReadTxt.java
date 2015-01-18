@@ -21,7 +21,6 @@ public class ReadTxt {
 			String sCurrentLine;
 
 			
-			
 			br = new BufferedReader(new InputStreamReader(
 	                  new FileInputStream(path), Charset.forName("ISO-8859-1")));
 			while ((sCurrentLine = br.readLine()) != null) {
