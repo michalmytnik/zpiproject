@@ -17,6 +17,7 @@ import pl.edu.pk.plagiarism.entities.File;
 import pl.edu.pk.plagiarism.service.FileService;
 import pl.edu.pk.plagiarism.utils.ComparisonStorage;
 import pl.edu.pk.plagiarism.utils.ReadTxt;
+import pl.edu.pk.plagiarism.utils.ReportsCreator;
 import pl.edu.pk.plagiarism.utils.TextComparison;
 import pl.edu.pk.plagiarism.utils.Utils;
 
@@ -95,8 +96,8 @@ public class FileServiceImpl implements FileService {
 				temp.setPecentageOfMatchRows(TextComparison.pecentageOfMatchRows(mainText.split(""), textTocompare.split("")));
 				temp.setPecentageOfWordMatchWords(TextComparison.pecentageOfWordMatchWords(mainText, textTocompare));
 				cs.add(temp);
-				
-				
+				ReportsCreator.createPdfReport( f.getName(),  temp);
+				System.out.println("report created successfully.");
 			}
 				
 		}

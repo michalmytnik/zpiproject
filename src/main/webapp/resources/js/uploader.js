@@ -1,7 +1,6 @@
 //using FormData() object
 function uploadFileToRepo(doCheck) {
 	$('#result').html('');
-
 	var oMyForm = new FormData();
 	var filename = file2.value;
 	oMyForm.append("file", file2.files[0]);
@@ -23,11 +22,13 @@ function uploadFileToRepo(doCheck) {
 			showInfo(message);
 			console.info('File uploaded.')
 			if(doCheck){
+			
 				callChecker(filename);
 			}
 			
 		},
 		fail : function() {
+			$('#cover').fadeOut(1000);
 			console.err('Cannot upload file!');
 		}
 	});
@@ -52,12 +53,20 @@ var getPath = function(url){
 function checkPlagarism(){
 	//var servicePath = '//file/uploadToCheck'
 	uploadFileToRepo(true);
+	$('#cover').fadeIn(10);
+	
 }
 
 function callChecker(filename){
 	filename = encodeURI(filename)
 	var url = getPath(document.URL) + '/check/isPlagarism?fileName=' + filename;
-	
+	console.log('url: ' +url)
+		if(url.indexOf("C:%5Cfakepath%5C") > -1)
+		{
+			console.log('changed url ');
+			url = url.replace("C:%5Cfakepath%5C", "");
+		}
+	console.log('url2: ' +url)
 	$.ajax({
 		url : url,
 		type : 'GET',
@@ -65,9 +74,11 @@ function callChecker(filename){
 		success : function(result){
 			console.log('Check successfull!');
 			showResults(result);
+			$('#cover').fadeOut(1500);
 		},
 		fail : function(){
 			console.err('Something wrong with check request');
+			$('#cover').fadeOut(1000);
 		}
 	});
 }
@@ -94,10 +105,14 @@ function showResults(result){
 	var table = $('<table />');
 	var row = $('<tr />');
 	var cell = $('<td />');
+	row.append($('<td />').text('LP'));
 	row.append($('<td />').text('Dane'));
 	row.append($('<td />').text('Plik'));
+	row.append($('<td />').text('Raport'));
 	table.append(row);
 	
+	if( result.length> 0 )
+		alert ('Wykryto Plagiat !!! Szczegóły znajduja się w tabeli...')
 	for(var i=0; i<result.length; i++){
 		
 		if(result[i].textSimilarity > 80){
@@ -112,15 +127,21 @@ function showResults(result){
 					);
 			
 			var url = getPath(document.URL) + '/download/file?fileName=' + encodeURI(result[i].fileName);
-			var fileCell = $('<td />').html('<a href="'+ url +'">'+ result[i].fileName +'</a>'
-					);
-			tempRow.append(dataCell);
+			var fileNameCell = $('<td />').html('<span">'+ result[i].fileName.replace(".txt","") +'</span>');
+			var fileCell = $('<td />').html('<a href="'+ url +'">'+ result[i].fileName +'</a>');
+			var fileCellReport = $('<td />').html('<a href="'+ url.replace(".txt",".pdf") +'">'+ result[i].fileName.replace(".txt",".pdf") +'</a>');
+			/*tempRow.append(dataCell);*/
+			var lp = $('<td />').html(i+1 + '.');
+			tempRow.append(lp);
+			tempRow.append(fileNameCell);
 			tempRow.append(fileCell);
+			tempRow.append(fileCellReport);
 			table.append(tempRow);
 		}
 	}
 	
 	resultDiv.append(table);
+	
 	$('#mainContent').append(resultDiv);
 		
 }

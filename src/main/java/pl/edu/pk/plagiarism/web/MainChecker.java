@@ -43,6 +43,7 @@ public class MainChecker implements Serializable {
 		try {
 			cs = fileService.compareFileToOthers(fileName);
 			System.out.println("workings...");
+			System.out.println("return cs.size : " + cs.size());
 			return cs;
 		} catch (Exception e) {
 			return null;
